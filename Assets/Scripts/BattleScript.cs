@@ -7,6 +7,7 @@ public class BattleScript : MonoBehaviour
 
     public Animator animator;
     public bool attacked;
+    private Enemy enemy;
 
     void Start()
     {
@@ -16,6 +17,10 @@ public class BattleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.enemy != null)
+        {
+            enemy = GameManager.instance.enemy;
+        }
         deathf();
         reSpawn();
     }
@@ -26,8 +31,9 @@ public class BattleScript : MonoBehaviour
 
         if (GameManager.instance.enemy != null)
         {
-            GameManager.instance.enemy.GetComponent<Enemy>().isAttacked = true;
-            GameManager.instance.enemy.GetComponent<Enemy>().hp -= GameManager.instance.dmg;
+            StartCoroutine(GameManager.instance.enemy.GetComponent<Enemy>().attackCrtn());
+            enemy.isAttacked = true;
+            enemy.hp -= (GameManager.instance.dmg - enemy.armor); 
         }
         
     }

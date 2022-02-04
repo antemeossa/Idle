@@ -26,16 +26,13 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (isAttacked)
-        {
-            StartCoroutine(attackCrtn());
-        }
+        
         death();
     }
     public void attack()
     {
         animator.SetTrigger("attack");
-        GameManager.instance.hp -= damage;
+        GameManager.instance.hp -= (damage-GameManager.instance.armor);
         
     }
 
@@ -45,13 +42,11 @@ public class Enemy : MonoBehaviour
         {
             isDead = true;
             animator.SetBool("isDead",true);
-            GameManager.instance.enemyDefeated = true;
-            GameManager.instance.enemySpawned = false;
             StartCoroutine(deathCrtn());
         }
     }
 
-    IEnumerator attackCrtn()
+    public IEnumerator attackCrtn()
     {
         while (!isDead)
         {
@@ -61,8 +56,9 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator deathCrtn()
     {
-        GameManager.instance.spawnEnemy();
-            yield return new WaitForSeconds(1);
-            Destroy(gameObject);
+        yield return new WaitForSeconds(1);
+        EnemySpawner.instance.enemyDefeated = true;
+
+        Destroy(gameObject);
         }    
 }

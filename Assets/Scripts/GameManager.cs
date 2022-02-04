@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     public Text coinText;
+    public Text hpText;
     public double coinCount;
     public GameObject mainCanvas;
     public GameObject store;
@@ -16,18 +17,18 @@ public class GameManager : MonoBehaviour
     public UpgradeElement activeUpgrade;
     private bool oneSecPassed;
 
+
     public ItemElement activeWpn;
     public ItemElement activeArmor;
     public double hp;
+    public double hpRegen;
     public double armor;
     public double dmg;
 
     public bool isDead;
 
-    public GameObject enemy;
-    public bool enemySpawned;
-    public bool enemyDefeated;
-    public Transform enemySpawnPoint;
+    public Enemy enemy;
+    
 
 
     private void Awake()
@@ -51,11 +52,9 @@ public class GameManager : MonoBehaviour
         store.gameObject.SetActive(false);
         mainCanvas.gameObject.SetActive(true);
         charPanel.SetActive(false);
-        enemySpawned = false;
-        enemyDefeated = false;
+       
         isDead = false;
-        enemySpawnPoint.position = new Vector3(146, -99, 0);
-        enemy = Instantiate(enemy, enemySpawnPoint);
+        
 
     }
 
@@ -63,18 +62,17 @@ public class GameManager : MonoBehaviour
     {
         coinText.text = "Coins: " + coinCount;
         coinPerSecText.text = "Coin Per Sec: " + coinPerSecInt + "/s";
-        
+        hpText.text = "HP: " + hp;
         StartCoroutine(oneSec());
+
+       
     }
 
-    public void spawnEnemy()
+   public void calculateHP()
     {
-        if (!enemySpawned && enemyDefeated)
+        while (hp <= 100)
         {
-            enemyDefeated = false;
-            enemySpawned = true;
-            enemy = Instantiate(enemy,enemySpawnPoint);
-            
+            hp += hpRegen;
         }
     }
 
@@ -118,6 +116,7 @@ public class GameManager : MonoBehaviour
         {
             oneSecPassed = true;
             coinCalculatorPerSec();
+            calculateHP();
             yield return new WaitForSeconds(1);
             oneSecPassed = false;
         }
