@@ -31,8 +31,9 @@ public class BattleScript : MonoBehaviour
 
         if (GameManager.instance.enemy != null)
         {
-            if(!enemy.startedAttack)
-            StartCoroutine(GameManager.instance.enemy.GetComponent<Enemy>().attackCrtn());
+
+            enemy.attack();
+
             enemy.isAttacked = true;
             if(GameManager.instance.dmg > enemy.armor)
             enemy.hp -= (GameManager.instance.dmg - enemy.armor); 

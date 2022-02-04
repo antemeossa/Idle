@@ -95,6 +95,8 @@ MonoBehaviour:
   animator: {fileID: 3035098754919725898}
   isAttacked: 0
   isDead: 0
+  startedAttack: 0
+  killReward: 10
 --- !u!95 &3035098754919725898
 Animator:
   serializedVersion: 3

@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
 
     public bool startedAttack;
 
+    public double killReward;
+
 
     private void Awake()
     {
@@ -53,7 +55,7 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator attackCrtn()
     {
-        while (!isDead && !startedAttack)
+        while (!isDead)
         {
             attack();
             startedAttack = true;
@@ -62,9 +64,11 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator deathCrtn()
     {
-        yield return new WaitForSeconds(1);
+        
+        yield return new WaitForSeconds(5);
         EnemySpawner.instance.enemyDefeated = true;
-
+        GameManager.instance.coinCount += killReward;
         Destroy(gameObject);
-        }    
+
+    }
 }

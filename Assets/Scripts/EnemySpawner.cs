@@ -52,6 +52,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject e = Instantiate(enemyToSpawn, spawnPoint);
             enemy = e;
+            GameManager.instance.enemy = enemy.GetComponent<Enemy>();
             enemy.transform.parent = scene.transform;
             enemySpawned = true;
             enemyDefeated = false;
