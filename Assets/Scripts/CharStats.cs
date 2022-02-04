@@ -11,9 +11,6 @@ public class CharStats : MonoBehaviour
     public Text armorStatText;
     public Text wpnStatText;    
 
-    public ItemElement activeWpn;
-    public ItemElement activeArmor;
-
     public Text armorText;
     public Text wpnText;
 
@@ -33,9 +30,8 @@ public class CharStats : MonoBehaviour
 
         if(GameManager.instance.activeArmor != null)
         {
-            activeArmor = GameManager.instance.activeArmor;
-            armorText.text = activeArmor.GetComponent<ItemElement>().name;
-            armorImage = activeArmor.GetComponent<ItemElement>().img;
+            armorText.text = GameManager.instance.activeArmor.name;
+            armorImage = GameManager.instance.activeArmor.img;
         }
         else
         {
@@ -46,9 +42,8 @@ public class CharStats : MonoBehaviour
 
         if (GameManager.instance.activeWpn != null)
         {
-            activeWpn = GameManager.instance.activeWpn;
-            wpnText.text = activeWpn.GetComponent<ItemElement>().name;
-            wpnImage = activeWpn.GetComponent<ItemElement>().img;            
+            wpnText.text = GameManager.instance.activeWpn.name;
+            wpnImage = GameManager.instance.activeWpn.img;
         }
         else
         {
@@ -74,9 +69,8 @@ public class CharStats : MonoBehaviour
 
         if (GameManager.instance.activeArmor != null)
         {
-            activeArmor = GameManager.instance.activeArmor;
-            armorText.text = activeArmor.GetComponent<ItemElement>().name;
-            armorImage = activeArmor.GetComponent<ItemElement>().img;
+            armorText.text = GameManager.instance.activeArmor.name;
+            armorImage = GameManager.instance.activeArmor.img;
         }
         else
         {
@@ -87,9 +81,8 @@ public class CharStats : MonoBehaviour
 
         if (GameManager.instance.activeWpn != null)
         {
-            activeWpn = GameManager.instance.activeWpn;
-            wpnText.text = activeWpn.GetComponent<ItemElement>().name;
-            wpnImage = activeWpn.GetComponent<ItemElement>().img;
+            wpnText.text = GameManager.instance.activeWpn.name;
+            wpnImage = GameManager.instance.activeWpn.img;
         }
         else
         {

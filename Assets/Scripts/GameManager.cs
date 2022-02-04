@@ -18,8 +18,16 @@ public class GameManager : MonoBehaviour
 
     public ItemElement activeWpn;
     public ItemElement activeArmor;
+    public double hp;
     public double armor;
     public double dmg;
+
+    public bool isDead;
+
+    public GameObject enemy;
+    public bool enemySpawned;
+    public bool enemyDefeated;
+    public Transform enemySpawnPoint;
 
 
     private void Awake()
@@ -43,6 +51,11 @@ public class GameManager : MonoBehaviour
         store.gameObject.SetActive(false);
         mainCanvas.gameObject.SetActive(true);
         charPanel.SetActive(false);
+        enemySpawned = false;
+        enemyDefeated = false;
+        isDead = false;
+        enemySpawnPoint.position = new Vector3(146, -99, 0);
+        enemy = Instantiate(enemy, enemySpawnPoint);
 
     }
 
@@ -50,9 +63,22 @@ public class GameManager : MonoBehaviour
     {
         coinText.text = "Coins: " + coinCount;
         coinPerSecText.text = "Coin Per Sec: " + coinPerSecInt + "/s";
-
+        
         StartCoroutine(oneSec());
     }
+
+    public void spawnEnemy()
+    {
+        if (!enemySpawned && enemyDefeated)
+        {
+            enemyDefeated = false;
+            enemySpawned = true;
+            enemy = Instantiate(enemy,enemySpawnPoint);
+            
+        }
+    }
+
+    
 
     public void calculateStats()
     {
