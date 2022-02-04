@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     public bool isDead;
 
+    public bool startedAttack;
+
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
     {
         isDead = false;
         isAttacked = false;
+        startedAttack = false;
     }
 
     private void Update()
@@ -32,6 +35,7 @@ public class Enemy : MonoBehaviour
     public void attack()
     {
         animator.SetTrigger("attack");
+        if(damage>GameManager.instance.armor)
         GameManager.instance.hp -= (damage-GameManager.instance.armor);
         
     }
@@ -42,15 +46,17 @@ public class Enemy : MonoBehaviour
         {
             isDead = true;
             animator.SetBool("isDead",true);
+            EnemySpawner.instance.enemySpawned = false;
             StartCoroutine(deathCrtn());
         }
     }
 
     public IEnumerator attackCrtn()
     {
-        while (!isDead)
+        while (!isDead && !startedAttack)
         {
             attack();
+            startedAttack = true;
             yield return new WaitForSeconds(1);
         }
     }

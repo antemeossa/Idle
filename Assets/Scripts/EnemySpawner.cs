@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
+    private GameObject enemyToSpawn;
 
     public Transform spawnPoint;
 
@@ -30,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        enemyToSpawn = enemy;
         enemySpawned = false;
         enemyDefeated = false;
         spawnEnemy();
@@ -48,7 +50,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!enemySpawned)
         {
-            enemy = Instantiate(enemy, spawnPoint);
+            GameObject e = Instantiate(enemyToSpawn, spawnPoint);
+            enemy = e;
             enemy.transform.parent = scene.transform;
             enemySpawned = true;
             enemyDefeated = false;

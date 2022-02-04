@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
    public void calculateHP()
     {
-        while (hp <= 100)
+        while (hp < 100)
         {
             hp += hpRegen;
         }
